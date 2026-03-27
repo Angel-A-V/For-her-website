@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'CookieMonster';
+    src: url('./assets/fonts/Cookiemonster-gv11.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'CookieMonster', cursive;
+    background-color: #fde4f2;
+}
+
+h1 {
+    font-family: 'CookieMonster';
+    color: #e68bbe;
+}
+
+h2 {
+    font-family: 'CookieMonster';
+    color: #e68bbe;
+}
+
+textarea::placeholder {
+  color: #e68bbe;
+  opacity: 0.7;
+}

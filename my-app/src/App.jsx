@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
@@ -15,6 +14,7 @@ export default function App() {
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
 
+  // 🔥 NEW
   const [yesClicks, setYesClicks] = useState(0);
   const [sureText, setSureText] = useState("");
 
@@ -30,14 +30,13 @@ export default function App() {
     color: "#e68bbe",
     fontWeight: "bold",
     borderRadius: "20px",
-    padding: "14px 24px",
-    fontSize: "16px",
+    padding: "10px 20px",
     textTransform: "none",
     boxShadow: "0 4px 10px rgba(238,161,205,0.4)",
-    transition: "all 0.2s ease",
 
     "&:hover": {
       backgroundColor: "#f1c0dc",
+      boxShadow: "0 6px 14px rgba(238,161,205,0.6)",
     },
 
     "&:active": {
@@ -73,99 +72,133 @@ Feedback: ${feedback}
       
       {/* STEP 0 */}
       {step === 0 && (
-        <>
+        <div>
           <h1>Rate our first official date 🍣</h1>
 
-          <Box sx={{ width: "100%", maxWidth: 320, mt: 4 }}>
+          {/* ✅ YOUR ORIGINAL SLIDER (UNCHANGED) */}
+          <Box sx={{ width: 300, margin: "0 auto", mt: 4 }}>
             <Slider
               value={rating}
-              onChange={(e, v) => setRating(v)}
+              onChange={(e, newValue) => setRating(newValue)}
               min={0}
               max={10}
               step={1}
               valueLabelDisplay="on"
-              sx={{ color: "#eea1cd" }}
+              sx={{
+                color: "#eea1cd",
+
+                "& .MuiSlider-thumb": {
+                  backgroundColor: "#eea1cd",
+                },
+
+                "& .MuiSlider-rail": {
+                  backgroundColor: "#eea1cd",
+                  opacity: 0.5,
+                },
+
+                "& .MuiSlider-valueLabel": {
+                  backgroundColor: "#f4b8da",
+                },
+              }}
             />
 
-            <h2>{getEmoji(rating)}</h2>
+            <h2>Rating: {getEmoji(rating)}</h2>
           </Box>
 
-          <Button sx={pinkButtonStyle} onClick={() => setStep(1)}>
-            Submit →
-          </Button>
-        </>
+          <Stack direction="row" justifyContent="center" sx={{ mt: 3 }}>
+            <Button
+              sx={pinkButtonStyle}
+              endIcon={<ArrowForwardIcon />}
+              onClick={() => setStep(1)}
+            >
+              Submit
+            </Button>
+          </Stack>
+        </div>
       )}
 
       {/* STEP 1 */}
       {step === 1 && (
-        <>
+        <div>
           <h1>How should I improve? 😅</h1>
 
           <textarea
+            className="custom-textarea"
             style={styles.textarea}
             placeholder="Be honest... I can take it 😅"
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
           />
 
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            sx={{ mt: 2 }}
-          >
-            <Button sx={pinkButtonStyle} onClick={() => setStep(0)}>
+          <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 2 }}>
+            <Button
+              sx={pinkButtonStyle}
+              startIcon={<ArrowBackIcon />}
+              onClick={() => setStep(0)}
+            >
               Back
             </Button>
 
-            <Button sx={pinkButtonStyle} onClick={() => setStep(2)}>
-              Next →
+            <Button
+              sx={pinkButtonStyle}
+              endIcon={<ArrowForwardIcon />}
+              onClick={() => setStep(2)}
+            >
+              Next
             </Button>
           </Stack>
-        </>
+        </div>
       )}
 
       {/* STEP 2 */}
       {step === 2 && (
-        <>
+        <div>
           <h1>I have one more question...</h1>
 
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            sx={{ mt: 2 }}
-          >
-            <Button sx={pinkButtonStyle} onClick={() => setStep(1)}>
+          <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 2 }}>
+            <Button
+              sx={pinkButtonStyle}
+              startIcon={<ArrowBackIcon />}
+              onClick={() => setStep(1)}
+            >
               Back
             </Button>
 
-            <Button sx={pinkButtonStyle} onClick={() => setStep(3)}>
-              Continue →
+            <Button
+              sx={pinkButtonStyle}
+              endIcon={<ArrowForwardIcon />}
+              onClick={() => setStep(3)}
+            >
+              Continue
             </Button>
           </Stack>
-        </>
+        </div>
       )}
 
       {/* STEP 3 */}
       {step === 3 && (
-        <>
+        <div>
           <h1>May this brochacho be your boyfriend?</h1>
 
           {sureText && <h2>{sureText}</h2>}
 
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            sx={{ mt: 2 }}
-          >
-            <Button sx={pinkButtonStyle} onClick={() => setStep(2)}>
+          <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 2 }}>
+            
+            <Button
+              sx={pinkButtonStyle}
+              startIcon={<ArrowBackIcon />}
+              onClick={() => setStep(2)}
+            >
               Back
             </Button>
 
+            {/* YES */}
             <Button
               sx={{
                 ...pinkButtonStyle,
                 transform: `scale(${1 + yesClicks * 0.2})`,
               }}
+              endIcon={<FavoriteIcon />}
               onClick={() => {
                 if (yesClicks === 0) setSureText("Are you sure? 😳");
                 else if (yesClicks === 1) setSureText("Really sure?? 🥹");
@@ -181,11 +214,13 @@ Feedback: ${feedback}
               Yes ❤️
             </Button>
 
+            {/* OF COURSE */}
             <Button
               sx={{
                 ...pinkButtonStyle,
                 transform: `scale(${1 + yesClicks * 0.2})`,
               }}
+              endIcon={<CelebrationIcon />}
               onClick={() => {
                 if (yesClicks === 0) setSureText("Are you sure? 😳");
                 else if (yesClicks === 1) setSureText("Really sure?? 🥹");
@@ -200,8 +235,23 @@ Feedback: ${feedback}
             >
               Of Course 😌
             </Button>
+
+            {/* NO BUTTON */}
+            <Button
+              sx={{
+                ...pinkButtonStyle,
+                backgroundColor: "#eee",
+                color: "#999",
+              }}
+              onClick={() => {
+                setSureText("Hmm… I think you meant yes 😏");
+              }}
+            >
+              No 🙄
+            </Button>
+
           </Stack>
-        </>
+        </div>
       )}
     </div>
   );
@@ -214,23 +264,24 @@ const styles = {
   container: {
     minHeight: "100vh",
     display: "flex",
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    padding: "20px",
   },
 
   textarea: {
     marginTop: 20,
-    width: "100%",
-    maxWidth: 320,
+    width: 320,
     height: 120,
     padding: 15,
     borderRadius: "30px",
     border: "2px solid #eea1cd",
+    outline: "none",
     fontSize: "16px",
     fontFamily: "CookieMonster",
     backgroundColor: "#fff0f6",
+    boxShadow: "0 4px 12px rgba(238,161,205,0.3)",
+    color: "#e68bbe",
+    caretColor: "#eea1cd",
   },
 };

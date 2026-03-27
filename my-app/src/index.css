@@ -1,26 +1,44 @@
+/* =========================
+   CUSTOM FONT
+========================= */
 @font-face {
-    font-family: 'CookieMonster';
-    src: url('./assets/fonts/Cookiemonster-gv11.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'CookieMonster';
+  src: url('./assets/fonts/Cookiemonster-gv11.ttf') format('truetype');
 }
 
+/* =========================
+   GLOBAL
+========================= */
 body {
-    font-family: 'CookieMonster', cursive;
-    background-color: #fde4f2;
+  margin: 0;
+  font-family: 'CookieMonster', cursive;
+  background-color: #fde4f2;
+  overflow-x: hidden;
 }
 
-h1 {
-    font-family: 'CookieMonster';
-    color: #e68bbe;
+/* =========================
+   TEXT
+========================= */
+h1, h2 {
+  color: #e68bbe;
 }
 
-h2 {
-    font-family: 'CookieMonster';
-    color: #e68bbe;
-}
-
+/* =========================
+   TEXTAREA
+========================= */
 textarea::placeholder {
   color: #e68bbe;
   opacity: 0.7;
+}
+
+textarea {
+  color: #e68bbe;
+  caret-color: #eea1cd;
+}
+
+/* =========================
+   MOBILE TOUCH FIX
+========================= */
+button {
+  touch-action: manipulation;
 }
